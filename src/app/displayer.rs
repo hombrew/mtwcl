@@ -6,7 +6,7 @@ use std::{
 use crossterm::{cursor, terminal, QueueableCommand};
 
 trait Displayer {
-    fn show(error_writer: &mut Stderr, text: &str) -> ();
+    fn show(error_writer: &mut Stderr, text: &str);
 }
 
 struct Display<'a, DISPLAYER: Displayer> {
