@@ -1,10 +1,5 @@
 mod app;
 
-fn main() -> Result<(), ()> {
-    println!("Hello, world!");
-
+fn main() {
     app::App::new().start();
-
-    println!("Bye, world!");
-    Ok(())
 }

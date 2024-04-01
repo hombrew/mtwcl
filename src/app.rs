@@ -7,27 +7,31 @@ use crossterm::{
 };
 use std::io::{stderr, Stderr, Write};
 
+mod displayer;
+
 pub struct App {
-    writer: Stderr,
+    error_writer: Stderr,
     index: usize,
 }
 
 impl App {
     pub fn new() -> Self {
-        App {
+        Self {
             index: 0,
-            writer: stderr(),
+            error_writer: stderr(),
         }
     }
 
     fn run(&mut self) {
         loop {
-            self.writer
+            self.error_writer
                 .queue(Clear(ClearType::All))
                 .unwrap()
                 .queue(MoveTo(0, 0))
                 .unwrap();
-            self.writer.flush().unwrap();
+            self.error_writer.flush().unwrap();
+
+            displayer::display(&mut self.error_writer, self.index);
 
             let current_event = event::read().expect("failed to read keyboard input");
             if let Event::Key(event_key) = current_event {
@@ -60,14 +64,14 @@ impl App {
 
     pub fn start(&mut self) {
         enable_raw_mode().unwrap();
-        queue!(self.writer, Hide).unwrap();
+        queue!(self.error_writer, Hide).unwrap();
         self.run();
     }
 }
 
 impl Drop for App {
     fn drop(&mut self) {
-        queue!(self.writer, Show).unwrap();
+        queue!(self.error_writer, Show).unwrap();
         disable_raw_mode().unwrap();
     }
 }
