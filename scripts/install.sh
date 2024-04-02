@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 # Function to detect the architecture
 detect_architecture() {
     ARCH=$(uname -m)
@@ -35,7 +33,8 @@ detect_shell() {
     echo "$SHELL"
 }
 
-VERSION="v0.1.0"
+# VERSION="v0.1.0"
+VERSION="main"
 
 # Define the base URL for downloading binaries
 BASE_URL="https://github.com/hombrew/mtwcl/releases/download/$VERSION"
