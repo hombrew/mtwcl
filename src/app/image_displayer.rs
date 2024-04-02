@@ -1,6 +1,6 @@
 use std::io::Stderr;
 
-use crossterm::terminal;
+use crossterm::terminal::{self, disable_raw_mode, enable_raw_mode};
 use viuer::Config;
 
 use super::assets_dir::ASSETS_DIR;
@@ -10,6 +10,7 @@ pub struct ImageDisplayer;
 
 impl Displayer for ImageDisplayer {
     fn show(_error_writer: &mut Stderr, text: &str) {
+        disable_raw_mode().unwrap();
         let markdown = ASSETS_DIR.get_file(text).unwrap();
         let (terminal_width, terminal_height) = terminal::size().unwrap();
 
@@ -20,6 +21,7 @@ impl Displayer for ImageDisplayer {
             ..Default::default()
         };
         viuer::print(&img, &viuer_config).unwrap();
+        enable_raw_mode().unwrap();
     }
 }
 
