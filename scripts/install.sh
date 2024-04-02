@@ -33,7 +33,7 @@ detect_shell() {
     echo "$SHELL"
 }
 
-# VERSION="v0.1.0"
+# VERSION="v0.1.1"
 VERSION="main"
 
 # Define the base URL for downloading binaries
