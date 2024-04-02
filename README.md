@@ -33,3 +33,5 @@ cargo install --path .
 ```bash
 mtwcl
 ```
+
+Use `left` and `right` keys to navigate through the slides. Press `Esc` to exit.

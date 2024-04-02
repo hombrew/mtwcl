@@ -7,9 +7,11 @@ use crossterm::{
 };
 use std::io::{stderr, Stderr, Write};
 
+mod assets_dir;
 mod base_displayer;
 mod displayer;
 mod end_displayer;
+mod markdown_displayer;
 mod text_displayer;
 
 pub struct App {
