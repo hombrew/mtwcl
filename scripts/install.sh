@@ -33,8 +33,8 @@ detect_shell() {
     echo "$SHELL"
 }
 
-# VERSION="v0.1.1"
-VERSION="main"
+VERSION="v0.1.1"
+# VERSION="main"
 
 # Define the base URL for downloading binaries
 BASE_URL="https://github.com/hombrew/mtwcl/releases/download/$VERSION"
