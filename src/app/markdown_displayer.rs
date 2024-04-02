@@ -29,7 +29,7 @@ impl Displayer for MarkdownDisplayer {
         let y = (terminal_height - content_height) / 2;
 
         MadSkin::default()
-            .write_in_area(&markdown, &Area::new(x, y, content_width, content_height))
+            .write_in_area(markdown, &Area::new(x, y, content_width, content_height))
             .unwrap();
     }
 }
