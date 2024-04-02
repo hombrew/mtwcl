@@ -1,58 +1,7 @@
-use std::{
-    io::{Stderr, Write},
-    marker::PhantomData,
-};
+use std::io::Stderr;
 
-use crossterm::{cursor, terminal, QueueableCommand};
-
-trait Displayer {
-    fn show(error_writer: &mut Stderr, text: &str);
-}
-
-struct Display<'a, DISPLAYER: Displayer> {
-    displayer: PhantomData<DISPLAYER>,
-    error_writer: &'a mut Stderr,
-}
-
-impl<'a, DISPLAYER: Displayer> Display<'a, DISPLAYER> {
-    pub fn new(error_writer: &'a mut Stderr) -> Self {
-        Self {
-            error_writer,
-            displayer: PhantomData,
-        }
-    }
-
-    pub fn display(&mut self, text: &str) {
-        DISPLAYER::show(self.error_writer, text);
-    }
-}
-
-struct TextDisplayer;
-type TextSlide<'a> = Display<'a, TextDisplayer>;
-impl Displayer for TextDisplayer {
-    fn show(error_writer: &mut Stderr, text: &str) {
-        let (width, height) = terminal::size().unwrap();
-        let top = height.saturating_sub(text.lines().count() as u16) / 2;
-
-        for (index, line) in text.lines().enumerate() {
-            let x = width.saturating_sub(line.len() as u16) / 2;
-            error_writer
-                .queue(cursor::MoveTo(x, top + index as u16))
-                .unwrap();
-            error_writer.write_all(line.as_bytes()).unwrap();
-        }
-
-        error_writer.flush().unwrap();
-    }
-}
-
-struct EndDisplayer;
-type EndSlide<'a> = Display<'a, EndDisplayer>;
-impl Displayer for EndDisplayer {
-    fn show(_error_writer: &mut Stderr, _text: &str) {
-        panic!("bye")
-    }
-}
+use super::end_displayer::EndSlide;
+use super::text_displayer::TextSlide;
 
 enum SlideTypes<'a> {
     Text(&'a str),
