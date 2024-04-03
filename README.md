@@ -1,8 +1,10 @@
+Hi! and welcome to this unconventional cover letter
+
 ## Description
 A small command-line application to display slides from the terminal written in Rust. 
 
 mtwcl means:
-- Manuel
+- Manuel's
 - Tailwind
 - cover
 - letter
