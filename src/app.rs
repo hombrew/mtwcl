@@ -1,11 +1,11 @@
 use crossterm::{
     cursor::{Hide, MoveTo, Show},
     event::{self, Event, KeyCode, KeyEvent},
-    queue,
-    terminal::{disable_raw_mode, enable_raw_mode, Clear, ClearType},
+    execute, queue,
+    terminal::{self, disable_raw_mode, enable_raw_mode, Clear, ClearType},
     QueueableCommand,
 };
-use std::io::{stderr, Stderr, Write};
+use std::io::{stderr, stdout, Stderr, Write};
 
 mod assets_dir;
 mod base_displayer;
@@ -58,7 +58,8 @@ impl App {
                     }
 
                     KeyEvent {
-                        code: KeyCode::Esc, ..
+                        code: KeyCode::Esc | KeyCode::Char('q') | KeyCode::Char('Q'),
+                        ..
                     } => {
                         break;
                     }
@@ -70,6 +71,7 @@ impl App {
 
     pub fn start(&mut self) {
         enable_raw_mode().unwrap();
+        execute!(stdout(), terminal::SetSize(80, 35)).unwrap();
         queue!(self.error_writer, Hide).unwrap();
         self.run();
     }

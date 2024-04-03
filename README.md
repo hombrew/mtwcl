@@ -34,4 +34,9 @@ cargo install --path .
 mtwcl
 ```
 
-Use `left` and `right` keys to navigate through the slides. Press `Esc` to exit.
+Use `Left` and `Right` keys to navigate through the slides. Press `Esc`, `q` or `Q` to exit.
+
+For best experience, run in one of these specific environments:
+
+- [Kitty](https://sw.kovidgoyal.net/kitty/graphics-protocol.html)
+- [iTerm](https://iterm2.com/documentation-images.html)
